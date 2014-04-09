@@ -1,0 +1,10 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-ng-build": "0.0.1",
+    "gulp": "^3.6.0",
+    "gulp-ngbuild": "0.0.4"
+  }
+}
