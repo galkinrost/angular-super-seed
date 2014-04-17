@@ -4,7 +4,7 @@ module.exports = function (grunt) {
         ngbuild: {
             build: {
                 src: ['app/app.js'],
-                dest: 'app/build/app.js'
+                dest: 'app_build/app.js'
             }
         }
     });
