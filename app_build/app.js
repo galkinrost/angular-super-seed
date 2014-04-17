@@ -21722,29 +21722,82 @@ var styleDirective = valueFn({
         };
     }
 }(window, window.angular));
-angular.module('App.controllers', []);
-angular.module('App.controllers').controller('FirstController', function ($scope) {
-});
-angular.module('App.directives', []);
-angular.module('App.filters', []);
-angular.module('App.services', []);
 angular.module('MyModule.controllers', []);
+angular.module('MyModule.controllers').controller('MyModuleFirstController', function ($scope) {
+    $scope.name = 'MyModuleFirstController';
+});
 angular.module('MyModule.directives', []);
-angular.module('MyModule.fiters', []);
+angular.module('MyModule.directives').directive('myModuleFirstDirective', function () {
+    return {
+        restrict: 'E',
+        controller: function ($scope) {
+            $scope.name = 'myModuleFirstDirective';
+        },
+        replace: true,
+        template: '<span>{{name}}</span>'
+    };
+});
+angular.module('MyModule.filters', []);
+angular.module('MyModule.filters').filter('substring', function () {
+    return function (text, pos) {
+        return ('' + (text || '')).substring(pos);
+    };
+});
 angular.module('MyModule.services', []);
+angular.module('MyModule.services').service('myModuleApi', function ($http) {
+    return function () {
+        return $http.get('my_module/api');
+    };
+});
 angular.module('MyModule', [
     'MyModule.controllers',
     'MyModule.directives',
-    'MyModule.fiters',
+    'MyModule.filters',
     'MyModule.services'
 ]);
+angular.module('App.controllers', []);
+angular.module('App.controllers').controller('FirstController', function ($scope) {
+    $scope.name = 'FirstController';
+});
+angular.module('App.controllers').controller('SecondController', function ($scope) {
+    $scope.name = 'SecondController';
+});
+angular.module('App.directives', []);
+angular.module('App.directives').directive('firstDirective', function () {
+    return {
+        restrict: 'E',
+        controller: function ($scope) {
+            $scope.name = 'firstDirective';
+        },
+        replace: true,
+        template: '<span>{{name}}</span>'
+    };
+});
+angular.module('App.filters', []);
+angular.module('App.filters').filter('length', function () {
+    return function (text) {
+        return ('' + (text || '')).length;
+    };
+});
+angular.module('App.services', []);
+angular.module('App.services').service('api', function ($http) {
+    return function () {
+        return $http.get('api');
+    };
+});
 angular.module('App', [
     'ngRoute',
+    'MyModule',
     'App.controllers',
     'App.directives',
     'App.filters',
-    'App.services',
-    'MyModule'
+    'App.services'
 ], function ($routeProvider) {
-    $routeProvider.when('/url1', { template: '<div>\n    Hello, I\'m url1\'s template\n</div>' }).when('/url2', { template: '<div>\n    Hello, I\'m url2\'s template\n</div>' });
+    $routeProvider.when('/url1', {
+        controller: 'FirstController',
+        template: '<div>{{name}}</div>'
+    }).when('/url2', {
+        controller: 'SecondController',
+        template: '<div>{{name}}</div>'
+    }).otherwise({ redirectTo: '/url1' });
 });

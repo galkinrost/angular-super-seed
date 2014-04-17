@@ -1,1 +1,1 @@
-angular.module("MyModule.fiters", []);
+angular.module("MyModule.filters", []);

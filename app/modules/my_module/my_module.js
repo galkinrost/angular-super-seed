@@ -1,1 +1,1 @@
-angular.module("MyModule",["/app/modules/my_module/controllers","/app/modules/my_module/directives","/app/modules/my_module/filters","/app/modules/my_module/services"]);
+angular.module("MyModule",["controllers","directives","filters","services"]);
